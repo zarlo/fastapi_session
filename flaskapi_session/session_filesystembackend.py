@@ -1,6 +1,6 @@
 import pickle
 
-from .session_interface import BackendInterface
+from .session_interface import BackendInterface, SessionInterface
 
 class FileSystemBackend(BackendInterface):
     def __init__(self, session_key: str, data_path: str):
@@ -8,7 +8,7 @@ class FileSystemBackend(BackendInterface):
         self.data_path = data_path
     
     def get_session(self, key: str) -> SessionInterface:
-        return FileSystemInterface(key, data_path)
+        return FileSystemInterface(key, self.data_path)
     
 class FileSystemInterface(SessionInterface):
     

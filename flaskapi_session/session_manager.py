@@ -1,6 +1,9 @@
 import inspect
+import random
+import string
+from typing import Callable, Awaitable, Union
 
-from fastapi import Request, Cookie
+from fastapi import Request, Cookie, Response
 from .session_interface import BackendInterface
 
 class SessionManager:
@@ -8,6 +11,24 @@ class SessionManager:
     def __init__(self, backend: BackendInterface = None):
         self._backend = backend
         self._session_id_callback = None
+        self._cookie_name = None
+    
+    def use_cookie(self, cookie_name: str = "session"):
+        """
+        This is just a basic session id that use's a cookie
+        """
+        self._cookie_name = cookie_name
+        self.session_id(self._cookie)
+        
+    def init_cookie(self, response: Response, id: str = None):
+        if id is None:
+            id = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
+            
+        response.set_cookie(self._cookie_name, id)
+            
+    def _cookie(self, request: Request) -> str:
+        return request.cookies.get(self._cookie_name, None)
+        
     
     def session_id(self, callback: Union[Callable, Awaitable]) -> Union[Callable, Awaitable]:
         """
