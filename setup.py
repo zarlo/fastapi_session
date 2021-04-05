@@ -6,7 +6,7 @@ with open("README.md", 'r') as f:
 
 setuptools.setup(
     name="fastapi-session",
-    version="0.2.6",
+    version="0.2.7",
     author="Zarlo",
     author_email="5899@zarlo.dev",
     descritpion="session for FastAPI",
