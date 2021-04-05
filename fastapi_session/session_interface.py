@@ -34,3 +34,6 @@ class BackendInterface:
         
     def get_session(self, key: str) -> SessionInterface:
         pass
+
+    def cleanup(self):
+        pass
