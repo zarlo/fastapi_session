@@ -4,15 +4,23 @@ import string
 from typing import Callable, Awaitable, Union
 
 from fastapi import Request, Cookie, Response
+from fastapi import BackgroundTasks, FastAPI
 from .session_interface import BackendInterface
-
+from .tasks import repeat_every
 class SessionManager:
 
-    def __init__(self, backend: BackendInterface = None):
+    def __init__(self, backend: BackendInterface = None, app: FastAPI = None):
         self._backend = backend
         self._session_id_callback = None
         self._cookie_name = None
+        BackgroundTasks.add_task(self._backend.cleanup)
     
+    def init_app(self, app: FastAPI) -> None:
+        @app.on_event("startup")
+        @repeat_every(seconds=60 * 60)
+        def remove_expired_sessions_task() -> None:
+            self._backend.cleanup()
+
     def use_cookie(self, cookie_name: str = "session"):
         """
         This is just a basic session id that use's a cookie

@@ -6,6 +6,6 @@ verify_ssl = true
 
 [packages]
 fastapi = "*"
-
+motor = "*"
 [requires]
 python_version = "3.8"

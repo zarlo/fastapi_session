@@ -1,3 +1,5 @@
+import time, os
+
 import pickle
 
 from .session_interface import BackendInterface, SessionInterface
@@ -9,6 +11,14 @@ class FileSystemBackend(BackendInterface):
     
     def get_session(self, key: str) -> SessionInterface:
         return FileSystemInterface(key, self.data_path)
+
+    def cleanup(self) -> None:
+        now = time.time()
+
+        for f in os.listdir(self.data_path):
+            if os.stat(f).st_mtime < now - 7 * 86400:
+                if os.path.isfile(f):
+                    os.remove(os.path.join(self.data_path, f))
     
 class FileSystemInterface(SessionInterface):
     
