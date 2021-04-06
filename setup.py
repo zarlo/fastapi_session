@@ -24,5 +24,5 @@ def build(name, version, descritpion, packages, install_requires = []):
         include_package_data=True
     )
 
-build("fastapi-session", "0.2.7", "session for FastAPI", ["fastapi_session"], ["fastapi"])
-build("fastapi-session-mongo", "0.1.0", "session for FastAPI MongoBackEnd", ["fastapi_session_mongodb"], ["fastapi", "fastapi_session"])
+build("fastapi-session", "0.2.8", "session for FastAPI", ["fastapi_session"], ["fastapi"])
+build("fastapi-session-mongo", "0.1.5", "session for FastAPI MongoBackEnd", ["fastapi_session_mongodb"], ["fastapi", "fastapi_session"])
