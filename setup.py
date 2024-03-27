@@ -3,13 +3,13 @@ import setuptools
 with open("README.md", 'r') as f:
     long_description = f.read()
 
-def build(name, version, descritpion, packages, install_requires = []):
+def build(name, version, description, packages, install_requires = []):
     setuptools.setup(
         name=name,
         version=version,
         author="Zarlo",
         author_email="5899@zarlo.dev",
-        descritpion=descritpion,
+        description=description,
         long_description=long_description,
         long_description_content_type="text/markdown",
         url="https://github.com/zarlo/fastapi_session",
